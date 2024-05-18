@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-export default function Sessions({ sessions, loading }) {
+export default function Sessions({ sessions }) {
     return (
         <div className='h-full w-full'>
             {sessions.length > 0 ? (

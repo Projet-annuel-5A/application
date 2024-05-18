@@ -1,44 +1,37 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { createClient } from "@/utils/supabase/client";
-import AddSession from "@/app/application/sessions/addSession";
+import { supabaseClientClient as supabase } from "@/utils/supabase/client";
 import Sessions from "@/app/application/sessions/sessions";
+import { usePathname ,useRouter } from 'next/navigation'
+import { Session } from '@/app/types/database';
 
 export default function SessionsPage() {
-    const supabase = createClient();
-    const [sessions, setSessions] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [sessions, setSessions] = useState<Session[] | null>([]);
+
+    const path = usePathname();
+    const router = useRouter();
 
     const fetchSessions = async () => {
-        setLoading(true);
-        const { data, error } = await supabase.from('sessions').select('*');
+        const { data, error } = await supabase.from('sessions').select('*') as { data: Session[] | null, error: any };
         if (error) {
             console.error('Error fetching sessions:', error.message);
         } else {
             setSessions(data);
         }
-        setLoading(false);
     };
 
     useEffect(() => {
         fetchSessions();
     }, []);
 
-    const addSession = async (session) => {
-        const { data, error } = await supabase.from('sessions').insert([session]);
-        if (error) {
-            console.error('Error adding session:', error.message);
-        } else {
-            fetchSessions();
-        }
-    };
-
     return (
         <div className="flex justify-center w-4/5">
             <div className="flex flex-col overflow-y-auto w-full">
-                <AddSession addSession={addSession} />
-                <Sessions sessions={sessions} loading={loading} />
+                <div>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push(`${path}/new`) }>Add Session</button>
+                </div>
+                <Sessions sessions={sessions}/>
             </div>
         </div>
     );

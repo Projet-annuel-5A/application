@@ -34,3 +34,8 @@ export const createClient = () => {
     },
   );
 };
+
+export async function getUserServer(){
+  const supabase = createClient();
+  return (await supabase.auth.getUser()).data.user;
+}

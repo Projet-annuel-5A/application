@@ -2,18 +2,30 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from "@/utils/supabase/client";
-import AddInterview from "./addInterview";
 import Interviews from './interviews';
+import { usePathname ,useRouter } from 'next/navigation'
+import { Session, Interview } from '@/app/types/database';
 
-export default function InterviewsPage({ params }){
+
+interface ParamsInterface {
+    sessionid: Session["id"]
+}
+
+export default function Page({ params }: { params: ParamsInterface }){
 
     const supabase = createClient();
-    const [interviews, setInterviews] = useState([]);
+    const path = usePathname();
+    const router = useRouter();
+    const [interviews, setInterviews] = useState<Interview[] | null>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchInterviews = async () => {
         setLoading(true);
-        const { data, error } = await supabase.from('interviews').select('*').filter('sessionId','eq',params.sessionid);
+        const { data , error } = await supabase
+            .from('interviews')
+            .select('*')
+            .filter('session_id','eq',params.sessionid) as { data: Interview[] | null, error: any };
+            
         if (error) {
             console.error('Error fetching sessions:', error.message);
         } else {
@@ -26,19 +38,17 @@ export default function InterviewsPage({ params }){
         fetchInterviews();
     }, []);
 
-    const addInterview = async (interview) => {
-        const { data, error } = await supabase.from('interviews').insert([interview]);
-        if (error) {
-            console.error('Error adding session:', error.message);
-        } else {
-            fetchInterviews();
-        }
-    };
 
     return(
-        <div>
-            <AddInterview addInterview={addInterview} sessionid={params.sessionid}/>
-            <Interviews interviews={interviews} loading={loading} sessionid={params.sessionid}/>
+        <div className='flex flex-col justify-center w-4/5'>
+            <div>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push(`${path}/new`)}>Add Interview</button>
+            </div>
+            {interviews && interviews.length > 0 ? (
+                <Interviews interviews={interviews}/>
+            ) : (
+                <div>No interviews found.</div>
+            )}
         </div>
     );
 }
