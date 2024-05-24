@@ -1,6 +1,6 @@
 "use client"
 import ScreenRecorder from '@/components/record/ScreenRecorder';
-import { supabaseClientClient as supabase, getUserClient } from '@/utils/supabase/client';
+import { supabaseBrowserClient as supabase, getUserClient } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react';
 import { Session, Interview } from '@/app/types/database';
 import { useRouter } from 'next/navigation';

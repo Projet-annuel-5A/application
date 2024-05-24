@@ -49,8 +49,23 @@ export default function ScreenRecorder({ sessionID, interviewID }: { sessionID: 
             console.error("Erreur lors de l'upload de l'enregistrement", error);
         } else {
             console.log("Enregistrement sauvegardé avec succès:");
-            await supabase.from("interviews").update({'raw_file_ok': true}).filter('id', 'eq', interviewID);
+            await supabase.from("interviews").update({ 'raw_file_ok': true }).filter('id', 'eq', interviewID);
             // TODO QUERY API DANIEL HERE
+            try {
+                fetch(`http://127.0.0.1:8000/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: Number(sessionID),
+                        interview_id: Number(interviewID)
+                    })
+                });
+            } catch (error) {
+                console.error('error starting video processing', error)
+            }
+
         }
     };
 

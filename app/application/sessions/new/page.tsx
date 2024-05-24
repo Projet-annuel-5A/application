@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Session } from "@/app/types/database";
 import { getUserClient } from "@/utils/supabase/client";
-import { supabaseClientClient as supabase } from "@/utils/supabase/client";
+import { supabaseBrowserClient as supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 

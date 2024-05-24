@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { supabaseClientClient as supabase } from "@/utils/supabase/client";
+import { supabaseBrowserClient as supabase } from "@/utils/supabase/client";
 import Sessions from "@/app/application/sessions/sessions";
 import { usePathname, useRouter } from 'next/navigation'
 import { Session } from '@/app/types/database';

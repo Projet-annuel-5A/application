@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Session } from '@/app/types/database';
-import { supabaseClientClient as supabase } from '@/utils/supabase/client';
+import { supabaseBrowserClient as supabase } from '@/utils/supabase/client';
 import IconTrash from '@/icons/trash';
 
 export default function Sessions({ sessions }: { sessions: Session[] }) {

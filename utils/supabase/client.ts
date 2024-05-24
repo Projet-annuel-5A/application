@@ -5,8 +5,8 @@ export const createClient = () =>
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   );
 
-export const supabaseClientClient = createClient();
+export const supabaseBrowserClient = createClient();
 
 export async function getUserClient(){
-  return await supabaseClientClient.auth.getUser();
+  return await supabaseBrowserClient.auth.getUser();
 }
