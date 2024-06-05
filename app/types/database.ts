@@ -19,9 +19,11 @@ export type Interview = {
     first_name: string,
     last_name: string,
     email: string,
+    phone: string,
     session_id: Session["id"];
     user_id?: User["id"],
     agreement_ok:boolean,
+    agreement_doc_id: string,
     raw_file_ok: boolean,
     diarization_ok: boolean,
     audio_ok: boolean,

@@ -29,7 +29,7 @@ export default function Interviews({ interviews }: { interviews: Interview[]; })
         <div className='h-full w-full bg-slate-700 rounded shadow-lg px-3 my-1'>
             <ul>
                 {interviews.map((interview) => (
-                    <div className='w-full my-2 p-1 grid grid-cols-3 bg-slate-300 rounded-md hover:bg-slate-200 items-center shadow-md '>
+                    <div key={interview.id} className='w-full my-2 p-1 grid grid-cols-3 bg-slate-300 rounded-md hover:bg-slate-200 items-center shadow-md '>
                         <h3
                             className="text-start align-middle text-lg font-semibold ml-1 select-none"
                             onClick={() => router.push(`/application/sessions/${interview.session_id}/${interview.id}`)}

@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { Session, Interview } from "@/app/types/database";
 import ScreenRecorder from '@/components/record/ScreenRecorder';
 import Results from "./results";
+import SendInvitationButton  from './sendSignInvitation'
 
 interface ParamsInterface {
     sessionid: Session["id"],
@@ -10,6 +11,8 @@ interface ParamsInterface {
 
 export default async function InterviewPage({ params }: { params: ParamsInterface }) {
     const supabase = createClient();
+
+    const user = (await supabase.auth.getUser()).data.user;
 
     const { data, error } = await supabase
         .from('interviews')
@@ -29,6 +32,16 @@ export default async function InterviewPage({ params }: { params: ParamsInterfac
             return (
                 <div className="w-full h-full place-content-center">
                     <h2 className="text-white text-center">Waiting for {interview.last_name} {interview.first_name} agreement on {interview.email} ...</h2>
+                    { user &&
+                        <SendInvitationButton
+                            docID={interview.agreement_doc_id}
+                            candidateEmail={interview.email}
+                            candidatePhone={interview.phone}
+                            transmitterEmail={user.email}
+                            transmitterName={user.email}
+                        />
+                    }
+                    
                 </div>
             );
 
