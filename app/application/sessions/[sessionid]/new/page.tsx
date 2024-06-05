@@ -15,9 +15,11 @@ export default function Page({ params }: { params: ParamsInterface }) {
     const [interviewData, setInterviewData] = useState<Interview>({
         first_name: '',
         last_name: '',
+        email: '',
         duration: 0,
         session_id: params.sessionid,
         user_id: '',
+        agreement_ok: false,
         raw_file_ok: false,
         diarization_ok: false,
         audio_ok: false,
@@ -26,7 +28,7 @@ export default function Page({ params }: { params: ParamsInterface }) {
     });
 
     const isFormValid = () => {
-        return interviewData.first_name.length > 2 && interviewData.last_name.length > 2;
+        return interviewData.first_name.length > 2 && interviewData.last_name.length > 2 && interviewData.email.includes("@") && interviewData.email.length > 3;
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +67,12 @@ export default function Page({ params }: { params: ParamsInterface }) {
                         <label className="block text-sm font-medium text-gray-700">
                             Last Name:
                             <input type="text" name="last_name" value={interviewData.last_name} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                        </label>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">
+                            Candidate Email Adrress:
+                            <input type="email" name="email" value={interviewData.email} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                         </label>
                     </div>
                     <div className="flex justify-center space-x-4">

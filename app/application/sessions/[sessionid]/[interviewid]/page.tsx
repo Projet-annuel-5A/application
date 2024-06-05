@@ -24,7 +24,15 @@ export default async function InterviewPage({ params }: { params: ParamsInterfac
     if (data) {
         const interview: Interview = data[0];
 
-        if (!interview.raw_file_ok) {
+        if (!interview.agreement_ok){
+
+            return (
+                <div className="w-full h-full place-content-center">
+                    <h2 className="text-white text-center">Waiting for {interview.last_name} {interview.first_name} agreement on {interview.email} ...</h2>
+                </div>
+            );
+
+        } else if (!interview.raw_file_ok) {
             return (
                 <div className="flex justify-center">
                     <div className="flex flex-col justify-center">

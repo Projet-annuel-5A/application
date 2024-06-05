@@ -26,32 +26,44 @@ export default function Sessions({ sessions }: { sessions: Session[] }) {
         }
     };
 
+
     return (
-        <div className='h-full w-full'>
+        <div className='h-full w-full bg-slate-700 rounded shadow-lg px-3 my-1'>
             {sessions.length > 0 ? (
                 <ul>
                     {sessions.map((session) => (
-                        <div className='flex w-full items-center justify-center space-x-2 '>
-                            <Link key={session.id} href={`/application/sessions/${session.id}`} className='w-full' passHref>
-                                <div className="w-full bg-white rounded-lg shadow-md my-5 p-4 cursor-pointer hover:bg-gray-100">
-                                    <h3 className="text-lg font-semibold">{session.name}</h3>
-                                    <p>Start : {session.startDate}</p>
-                                    <p>End : {session.endDate}</p>
-                                </div>
-                            </Link>
-                            <button
-                                onClick={() => deleteSession(session.id)}
-                                className='flex items-center bg-white rounded-lg shadow-md p-4 cursor-pointer hover:bg-gray-100'
-                                style={{ height: '100%' }}
+                        <div className='w-full my-2 p-1 grid grid-cols-4 bg-slate-300 rounded-md hover:bg-slate-200 items-center shadow-md '>
+                            <h3 
+                                className="text-start align-middle text-lg font-semibold ml-1 select-none"
+                                onClick={() => router.push(`/application/sessions/${session.id}`)}
                             >
-                                <IconTrash />
-                            </button>
+                                {session.name}
+                            </h3>
+                            <p 
+                                className='text-start align-middle select-none'
+                                onClick={() => router.push(`/application/sessions/${session.id}`)}
+                            >
+                                Start : {session.startDate}
+                            </p>
+                            <p
+                                className='text-start align-middle select-none'
+                                onClick={() => router.push(`/application/sessions/${session.id}`)}
+                            >
+                                End : {session.endDate}
+                            </p>
+                            <div className='flex justify-end mr-2'>
+                                <button className='hover:hover:bg-slate-300 hover:shadow-md rounded-md' onClick={() => deleteSession(session.id)}>
+                                    <IconTrash />
+                                </button>
+                            </div>
                         </div>
 
                     ))}
                 </ul>
             ) : (
-                <div>No sessions found.</div>
+                <div className='grid grid-cols-1 place-content-center w-full h-full'>
+                    <h2 className='text-white text-center select-none'>Please add a new session.</h2>
+                </div>
             )}
         </div>
     );

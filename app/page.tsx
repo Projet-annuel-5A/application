@@ -10,7 +10,7 @@ export default async function Index() {
 
 
   if (user) {
-    return redirect("/application");
+    return redirect("/application/sessions/");
   }
 
   return (

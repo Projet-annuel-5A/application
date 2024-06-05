@@ -42,12 +42,14 @@ export default function Page({ params }: { params: ParamsInterface }){
     return(
         <div className='flex flex-col justify-center w-4/5'>
             <div>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push(`${path}/new`)}>Add Interview</button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md" onClick={() => router.push(`${path}/new`)}>Add Interview</button>
             </div>
             {interviews && interviews.length > 0 ? (
                 <Interviews interviews={interviews}/>
             ) : (
-                <div>No interviews found.</div>
+                <div className='grid grid-cols-1 place-content-center w-full h-full'>
+                    <h2 className='text-white text-center select-none'>Please add a new interview.</h2>
+                </div>
             )}
         </div>
     );

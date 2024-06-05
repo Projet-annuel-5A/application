@@ -9,16 +9,16 @@ export default function ScreenRecorder({ sessionID, interviewID }: { sessionID: 
     const path = usePathname();
     const router = usePathname();
     const [recording, setRecording] = useState(false);
-    const [mediaRecorder, setMediaRecorder] = useState(null);
+    const [mediaRecorder, setMediaRecorder] = useState<any>(null);
     const [showSaveButton, setShowSaveButton] = useState(false);
     const [recordedBlob, setRecordedBlob] = useState(null);
 
     const startRecording = async () => {
         try {
             const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-            const recorder = new MediaRecorder(stream);
+            const recorder = new MediaRecorder(stream) as any;
 
-            recorder.ondataavailable = (e) => {
+            recorder.ondataavailable = (e: any) => {
                 setRecordedBlob(e.data);
                 setShowSaveButton(true);
             };
@@ -50,7 +50,7 @@ export default function ScreenRecorder({ sessionID, interviewID }: { sessionID: 
         } else {
             console.log("Enregistrement sauvegardé avec succès:");
             await supabase.from("interviews").update({ 'raw_file_ok': true }).filter('id', 'eq', interviewID);
-            // TODO QUERY API DANIEL HERE
+            // TODO: USE REAL CLOUD API URL 
             try {
                 fetch(`http://127.0.0.1:8000/predict`, {
                     method: 'POST',

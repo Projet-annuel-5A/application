@@ -29,7 +29,7 @@ export default function Page() {
         <div className="flex justify-center w-4/5">
             <div className="flex flex-col overflow-y-auto w-full">
                 <div>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push(`${path}/new`)}>Add Session</button>
+                    <button className="bg-blue-600 hover:bg-blue-700 text-slate-900 py-2 px-4 rounded select-none" onClick={() => router.push(`${path}/new`)}>Add Session</button>
                 </div>
                 {sessions ? <Sessions sessions={sessions} /> : <div>No sessions found</div>}
             </div>

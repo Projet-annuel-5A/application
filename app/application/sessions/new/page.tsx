@@ -39,25 +39,25 @@ export default function Page() {
     };
 
     return (
-        <div className="flex justify-center">
-            <div className="flex flex-col justify-center">
-                <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex justify-center h-full">
+            <div className="flex flex-col justify-center h-full">
+                <form onSubmit={handleSubmit} className="space-y-4 bg-slate-700 rounded-md p-7 shadow-md">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-gray-300">
                             Name:
-                            <input type="text" name="name" value={sessionData.name} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                            <input type="text" name="name" value={sessionData.name} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 bg-slate-200 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                         </label>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-gray-300">
                             Start Date:
-                            <input type="date" name="startDate" value={sessionData.startDate} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                            <input type="date" name="startDate" value={sessionData.startDate} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 bg-slate-200 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                         </label>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-gray-300">
                             End Date:
-                            <input type="date" name="endDate" value={sessionData.endDate} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                            <input type="date" name="endDate" value={sessionData.endDate} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 bg-slate-200 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                         </label>
                     </div>
                     <div className="flex justify-end space-x-4">

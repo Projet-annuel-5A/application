@@ -9,11 +9,7 @@ export default async function ProtectedPage() {
 
   if (!user) {
     return redirect("/login");
+  } else {
+    return redirect("/application/sessions")
   }
-
-  return (
-    <div>
-      Home
-    </div>
-  );
 }
