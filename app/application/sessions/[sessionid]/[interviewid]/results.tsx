@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { countTrueValues } from '@/functions/compute';
 import { fetchInterviewResult } from "@/utils/supabase/browserQueries";
-import VideoDisplay from "./videoDisplay";
 import Dashboard from "./dashboard";
+// import Dashboard from "./dashboard";
 
 export default function Results({ sessionid, interviewid, interview }: { sessionid: string | undefined, interviewid: string | undefined, interview: Interview }) {
     
@@ -78,12 +78,12 @@ export default function Results({ sessionid, interviewid, interview }: { session
     const processOkNum = countTrueValues(interview);
 
     return (
-        <div className="flex justify-center items-start h-screen w-full">
-            <div className="flex flex-col items-center mt-4 w-full h-screen overflow-auto">
+        <div className="flex justify-center items-start h-full w-full">
+            <div className="flex flex-col items-center mt-4 w-full h-full overflow-auto">
                 {processOkNum === 4 ? 
                     <div className="flex flex-col">
-                        <VideoDisplay videoUrl={videoUrl} results={results}/>
-                        <Dashboard results={results}/>
+                        <Dashboard videoUrl={videoUrl} results={results}/>
+                        {/* <Dashboard results={results}/> */}
                     </div> :
                     <div>
                         Processing: {processOkNum}/4
