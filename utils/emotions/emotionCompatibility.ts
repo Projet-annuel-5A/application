@@ -2,155 +2,155 @@ export const textCompatibilityObj = {
     "text": {
         "anger": {
             "video": ["angry"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "annoyance": {
             "video": ["angry"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "disapproval": {
             "video": ["angry"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "envy": {
             "video": ["angry"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "frustration": {
             "video": ["angry"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "disgust": {
             "video": ["disgust"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "pain": {
             "video": ["disgust"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "doubt": {
             "video": ["fear"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "embarrassment": {
             "video": ["fear"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "fear": {
             "video": ["fear"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "nervousness": {
             "video": ["fear"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "admiration": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "amusement": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "approval": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "caring": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "courage": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "desire": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "faith": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "gratitude": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "joy": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "love": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "optimism": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "pride": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "relief": {
             "video": ["happy"],
-            "audio": ["pleased"]
+            "audio": ["Pleased"]
         },
         "boredom": {
             "video": ["neutral"],
-            "audio": ["neutral", "relaxed"]
+            "audio": ["Neutral", "Relaxed"]
         },
         "calmness": {
             "video": ["neutral"],
-            "audio": ["neutral", "relaxed"]
+            "audio": ["Neutral", "Relaxed"]
         },
         "indifference": {
             "video": ["neutral"],
-            "audio": ["neutral", "relaxed"]
+            "audio": ["Neutral", "Relaxed"]
         },
         "trust": {
             "video": ["neutral"],
-            "audio": ["neutral", "relaxed"]
+            "audio": ["Neutral", "Relaxed"]
         },
         "despair": {
             "video": ["sad"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
         "disappointment": {
             "video": ["sad"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
         "grief": {
             "video": ["sad"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
         "nostalgia": {
             "video": ["sad"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
         "sadness": {
             "video": ["sad"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
         "curiosity": {
             "video": ["surprise"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "excitement": {
             "video": ["surprise"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "surprise": {
             "video": ["surprise"],
-            "audio": ["tension"]
+            "audio": ["Tension"]
         },
         "greed": {
             "video": ["neutral"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
         "guilt": {
             "video": ["neutral"],
-            "audio": ["sad"]
+            "audio": ["Sad"]
         },
     }
 };
@@ -170,7 +170,7 @@ interface TextCompatibility {
     text: CompatibilityObj;
 }
 
-interface Compatibility {
+export interface Compatibility {
     text: CompatibilityObj;
     video: CompatibilityObj;
     audio: CompatibilityObj;

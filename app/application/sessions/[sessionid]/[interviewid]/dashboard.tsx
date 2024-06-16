@@ -3,17 +3,17 @@
 import { useEffect, useState, useRef } from "react";
 import { calculateAverageEmotions } from "@/functions/compute";
 import { textCompatibilityObj, getEmotionCompatibilityObj } from '@/utils/emotions/emotionCompatibility';
-import EmotionPercentageBox from '@/components/results/emotionPercentage';
+import EmotionPercentageBox from '@/components/results/emotionBox';
 
 export default function Dashboard({ videoUrl, results }: { videoUrl: string, results: any }) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [currentTime, setCurrentTime] = useState(0);
-    const [currentIdx, setCurrentIdx] =useState(0);
+    const [currentIdx, setCurrentIdx] = useState(0);
     const [sortedResults, setSortedResults] = useState<any[]>([]);
     const [audio, setAudio] = useState<any[]>([]);
     const [text, setText] = useState<any[]>([]);
     const [video, setVideo] = useState<any[]>([]);
-    const [emotionCompatibility, setEmotionCompatibility] = useState<any>(null);
+    
 
     const handleResultClick = (start: number) => {
         if (videoRef.current) {
@@ -56,9 +56,6 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
         const videoEmotions = calculateAverageEmotions(sorted);
         setVideo(videoEmotions);
 
-        const compatibility = getEmotionCompatibilityObj(textCompatibilityObj);
-        setEmotionCompatibility(compatibility);
-
         // console.log("compatibility", compatibility);
         // console.log("sorted", sorted);
         // console.log("text", textEmotions);
@@ -72,7 +69,6 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
             const idx = sortedResults.findIndex(result => currentTime >= result.start && currentTime <= result.end);
             if (idx !== -1) {
                 setCurrentIdx(idx);
-                console.log(idx)
             }
         }
     }, [currentTime, sortedResults]);
@@ -117,13 +113,11 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
 
             {/* RESULTS DISPLAY */}
             <div className="flex flex-col my-5">
-                <div className="flex justify-center">
+                
+                {video && text && audio && video[currentIdx] && text[currentIdx] && audio[currentIdx] && (
+                    <EmotionPercentageBox videoResults={video[currentIdx]} textResults={text[currentIdx]} audioResults={audio[currentIdx]} />
+                )}
 
-                    <EmotionPercentageBox modality="Video" emotionResults={video[currentIdx]}/>
-                    <EmotionPercentageBox modality="Says" emotionResults={text[currentIdx]}/>
-                    <EmotionPercentageBox modality="Voice" emotionResults={audio[currentIdx]}/>
-
-                </div>
             </div>
         </div>
     );
