@@ -49,56 +49,70 @@ export default function EmotionPercentageBox({
         const compatibility = getEmotionCompatibilityObj(textCompatibilityObj);
         setEmotionCompatibility(compatibility);
 
-    },[textCompatibilityObj])
+    }, [textCompatibilityObj])
 
     return (
-        // <div className="flex flex-col ">
-
-        // </div>
-        <div className={`flex justify-center bg-slate-400 rounded p-2 shadow-md border-2 ${inconsistencyScore === 3 ? 'border-red-500' : ''} ${inconsistencyScore === 2 ? 'border-yellow-500' : ''} ${inconsistencyScore === 1 || inconsistencyScore === 0 ? 'border-green-500' : ''}`}>
-
-            {/* VIDEO */}
-            <div className="flex flex-col mx-3 items-center w-full">
-
-                <span className="text-white">Video Analysis</span>
-
-                {topThreeVideoEmotions.map((emotionScore, idx) => (
-                    Math.round(emotionScore[1]) > 0 && (
-                        <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
-                            <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
-                        </div>
+        <div className="flex flex-col w-full h-full">
+            <div className={`flex justify-center w-full my-3 p-2 rounded-md ${inconsistencyScore === 3 ? 'bg-red-500' : ''} ${inconsistencyScore === 2 ? 'bg-yellow-500' : ''} ${inconsistencyScore === 1 || inconsistencyScore === 0 ? 'bg-green-500' : ''}`}>
+                {inconsistencyScore === 3 ? (
+                    <span className="font-bold">High inconsistency</span>
+                ) : (
+                    inconsistencyScore === 2 ? (
+                        <span className="font-bold">Moderate inconsistency</span>
+                    ) : (
+                        inconsistencyScore === 1 || inconsistencyScore === 0 ? (
+                            <span className="font-bold">Low inconsistency</span>
+                        ) : <span className="font-bold">Consitent</span>
                     )
-                ))}
+                )}
             </div>
 
-            {/* TEXT */}
-            <div className="flex flex-col mx-3 items-center w-full">
+            <div className={`flex justify-center bg-slate-400 rounded p-2 shadow-md border-2 ${inconsistencyScore === 3 ? 'border-red-500' : ''} ${inconsistencyScore === 2 ? 'border-yellow-500' : ''} ${inconsistencyScore === 1 || inconsistencyScore === 0 ? 'border-green-500' : ''}`}>
 
-                <span className="text-white">Text Analysis</span>
+                {/* VIDEO */}
+                <div className="flex flex-col mx-3 items-center w-full">
 
-                {topThreetextEmotions.map((emotionScore, idx) => (
-                    Math.round(emotionScore[1]) > 0 && (
-                        <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
-                            <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
-                        </div>
-                    )
-                ))}
-            </div>
+                    <span className="text-white">Video Analysis</span>
 
-            {/* AUDIO */}
-            <div className="flex flex-col mx-3 items-center w-full">
+                    {topThreeVideoEmotions.map((emotionScore, idx) => (
+                        Math.round(emotionScore[1]) > 0 && (
+                            <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
+                                <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
+                            </div>
+                        )
+                    ))}
+                </div>
 
-                <span className="text-white">Audio Analysis</span>
+                {/* TEXT */}
+                <div className="flex flex-col mx-3 items-center w-full">
 
-                {topThreeAudioEmotions.map((emotionScore, idx) => (
-                    Math.round(emotionScore[1]) > 0 && (
-                        <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
-                            <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
-                        </div>
-                    )
-                ))}
+                    <span className="text-white">Text Analysis</span>
+
+                    {topThreetextEmotions.map((emotionScore, idx) => (
+                        Math.round(emotionScore[1]) > 0 && (
+                            <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
+                                <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
+                            </div>
+                        )
+                    ))}
+                </div>
+
+                {/* AUDIO */}
+                <div className="flex flex-col mx-3 items-center w-full">
+
+                    <span className="text-white">Audio Analysis</span>
+
+                    {topThreeAudioEmotions.map((emotionScore, idx) => (
+                        Math.round(emotionScore[1]) > 0 && (
+                            <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
+                                <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
+                            </div>
+                        )
+                    ))}
+                </div>
             </div>
         </div>
+
     )
 }
 
