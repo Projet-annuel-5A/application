@@ -13,7 +13,7 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
     const [audio, setAudio] = useState<any[]>([]);
     const [text, setText] = useState<any[]>([]);
     const [video, setVideo] = useState<any[]>([]);
-    
+    const [speaker, setSpeaker] = useState<number>(0);
 
     const handleResultClick = (start: number) => {
         if (videoRef.current) {
@@ -24,6 +24,10 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
             }
         }
     };
+
+    const handleSpeackerSwitch = () => {
+        setSpeaker(prevSpeaker => (prevSpeaker === 0 ? 1 : 0));
+    }
 
     useEffect(() => {
         const handleTimeUpdate = () => {
@@ -46,6 +50,7 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
     useEffect(() => {
         const sorted = results.slice().sort((a: any, b: any) => a.start - b.start);
         setSortedResults(sorted);
+
 
         const audioEmotions = sorted.map((result: any) => result.audio_emotions);
         setAudio(audioEmotions);
@@ -75,6 +80,12 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
 
     return (
         <div className="flex flex-col w-full h-full">
+            <button
+                className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 w-1/6"
+                onClick={handleSpeackerSwitch}
+            >
+                Change candidate speaker
+            </button>
             {/* VIDEO DISPLAY */}
             <div className="flex w-full h-full justify-center space-x-2">
                 <div className="h-full w-9/12">
@@ -83,6 +94,7 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
                         Your browser does not support the video.
                     </video>
                 </div>
+                {/* TEXT DISPLAY */}
                 <div className="flex flex-col overflow-y-auto w-full" style={{ height: '40vh' }}>
                     <div className='h-full w-full'>
                         {sortedResults.length > 0 ? (
@@ -97,8 +109,9 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
                                             <div
                                                 className={`w-full rounded-lg shadow-md my-1 p-4 cursor-pointer hover:bg-gray-800 hover:text-white ${Math.floor(currentTime) >= Math.floor(result.start) && Math.floor(currentTime) <= Math.floor(result.end) ? "border-4 border-blue-500" : ""} ${result.speaker === 0 ? "bg-slate-400" : 'bg-slate-200'}`}
                                             >
-                                                {result.text}
+                                                <span className="font-semibold">{result.speaker === speaker ? "Candidate" : "Interviewer"}:</span> <span>{result.text}</span>
                                             </div>
+
                                         </div>
                                     </div>
                                 ))}
@@ -113,10 +126,17 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
 
             {/* RESULTS DISPLAY */}
             <div className="flex flex-col my-5">
-                
-                {video && text && audio && video[currentIdx] && text[currentIdx] && audio[currentIdx] && (
-                    <EmotionPercentageBox videoResults={video[currentIdx]} textResults={text[currentIdx]} audioResults={audio[currentIdx]} />
-                )}
+
+                <div className="flex flex-col my-5">
+                    {video && text && audio && video[currentIdx] && text[currentIdx] && audio[currentIdx] && sortedResults[currentIdx].speaker === speaker ? (
+                        <EmotionPercentageBox videoResults={video[currentIdx]} textResults={text[currentIdx]} audioResults={audio[currentIdx]} />
+                    ) : (
+                        <div className="flex justify-center w-full my-3 p-2 rounded-md shadow-md bg-slate-400">
+                            <p>The candidate is not currently talking</p>
+                        </div>
+                    )}
+                </div>
+
 
             </div>
         </div>
