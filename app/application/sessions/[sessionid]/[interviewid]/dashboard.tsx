@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react";
-import { calculateAverageEmotions } from "@/functions/compute";
-import { textCompatibilityObj, getEmotionCompatibilityObj } from '@/utils/emotions/emotionCompatibility';
+import { calculateAverageEmotions, get3MostEmotions } from "@/functions/compute";
 import EmotionPercentageBox from '@/components/results/emotionBox';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard({ videoUrl, results }: { videoUrl: string, results: any }) {
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -11,9 +11,18 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
     const [currentIdx, setCurrentIdx] = useState(0);
     const [sortedResults, setSortedResults] = useState<any[]>([]);
     const [audio, setAudio] = useState<any[]>([]);
+    const [filteredAudio, setFilteredAudio] = useState<any[]>([]);
     const [text, setText] = useState<any[]>([]);
+    const [filteredText, setFilteredText] = useState<any[]>([]);
     const [video, setVideo] = useState<any[]>([]);
+    const [filteredVideo, setFilteredVideo] = useState<any[]>([]);
     const [speaker, setSpeaker] = useState<number>(0);
+    const [speakerStartTS, setSpeakerStartTS] = useState<number[]>([]);
+    const [textEmotionChartFilter, setTextEmotionChartFilter] = useState<string[]>([]);
+    const [videoEmotionChartFilter, setVideoEmotionChartFilter] = useState<string[]>([]);
+    const [audioEmotionChartFilter, setAudioEmotionChartFilter] = useState<string[]>([]);
+
+    const [selectedChartModality, setSelectedChartModality] = useState<string>("video");
 
     const handleResultClick = (start: number) => {
         if (videoRef.current) {
@@ -27,6 +36,10 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
 
     const handleSpeackerSwitch = () => {
         setSpeaker(prevSpeaker => (prevSpeaker === 0 ? 1 : 0));
+    }
+
+    const handleChartModalitySelection = (modality: string) => {
+        setSelectedChartModality(modality);
     }
 
     useEffect(() => {
@@ -51,23 +64,40 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
         const sorted = results.slice().sort((a: any, b: any) => a.start - b.start);
         setSortedResults(sorted);
 
+        const filteredResults = sorted.filter((result: any) => result.speaker === speaker);
 
         const audioEmotions = sorted.map((result: any) => result.audio_emotions);
+        const filteredAudioEmotions = filteredResults.map((result: any) => result.audio_emotions);
         setAudio(audioEmotions);
+        setFilteredAudio(filteredAudioEmotions);
 
         const textEmotions = sorted.map((result: any) => result.text_emotions);
+        const filteredTextEmotions = filteredResults.map((result: any) => result.text_emotions);
         setText(textEmotions);
+        setFilteredText(filteredTextEmotions);
 
         const videoEmotions = calculateAverageEmotions(sorted);
+        const filteredVideoEmotions = calculateAverageEmotions(filteredResults);
         setVideo(videoEmotions);
+        setFilteredVideo(filteredVideoEmotions);
 
+        setSpeakerStartTS(filteredResults.map((result: any) => result.start))
+
+        setVideoEmotionChartFilter(get3MostEmotions(filteredVideoEmotions));
+        setAudioEmotionChartFilter(get3MostEmotions(filteredAudioEmotions));
+        setTextEmotionChartFilter(get3MostEmotions(filteredTextEmotions));
+
+        // console.log(videoEmotionChartFilter, audioEmotionChartFilter, textEmotionChartFilter)
         // console.log("compatibility", compatibility);
         // console.log("sorted", sorted);
         // console.log("text", textEmotions);
         // console.log("video", videoEmotions);
         // console.log("audio", audioEmotions);
+        // console.log(filteredAudioEmotions)
+        console.log(speakerStartTS)
 
-    }, [results]);
+    }, [results, speaker]);
+
 
     useEffect(() => {
         if (sortedResults.length > 0) {
@@ -77,6 +107,28 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
             }
         }
     }, [currentTime, sortedResults]);
+
+    const getSelectedData = () => {
+        switch (selectedChartModality) {
+            case "audio":
+                return filteredAudio;
+            case "text":
+                return filteredText;
+            default:
+                return filteredVideo;
+        }
+    };
+
+    const getTop3Emotion = () => {
+        switch (selectedChartModality) {
+            case "audio":
+                return audioEmotionChartFilter;
+            case "text":
+                return textEmotionChartFilter;
+            default:
+                return videoEmotionChartFilter;
+        }
+    }
 
     return (
         <div className="flex flex-col w-full h-full">
@@ -125,8 +177,8 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
 
 
             {/* RESULTS DISPLAY */}
-            <div className="flex flex-col my-5">
-
+            <div className="flex flex-col my-5 w-full h-full">
+                {/* EMOTION BOX */}
                 <div className="flex flex-col my-5">
                     {video && text && audio && video[currentIdx] && text[currentIdx] && audio[currentIdx] && sortedResults[currentIdx].speaker === speaker ? (
                         <EmotionPercentageBox videoResults={video[currentIdx]} textResults={text[currentIdx]} audioResults={audio[currentIdx]} />
@@ -137,8 +189,80 @@ export default function Dashboard({ videoUrl, results }: { videoUrl: string, res
                     )}
                 </div>
 
+                {/* CHART */}
+                <div className="flex flex-col w-full h-full">
+                    {/* CHART MODALITY SELECTION */}
+                    <div className="flex space-x-4">
+
+                        {["video", "audio", "text"].map(modality => (
+                            <button
+                                key={modality}
+                                className={`px-4 py-2 rounded ${selectedChartModality === modality ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} hover:bg-blue-700`}
+                                onClick={() => handleChartModalitySelection(modality)}
+                            >
+                                {modality}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="w-full h-full my-3 bg-slate-400 rounded-md shadow-md py-3">
+                        <ResponsiveContainer width="100%" height={400}>
+                            <AreaChart
+                                width={500}
+                                height={400}
+                                data={getSelectedData()}
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                }}
+                                onClick={(event) => {
+                                    if (event && event.activePayload && event.activePayload.length > 0) {
+                                        const clickedData = event.activePayload[0].payload;
+                                        // handleChartClick(clickedData, event.activeTooltipIndex);
+                                        if (event.activeTooltipIndex) {
+                                            // setCurrentTime(speakerStartTS[event.activeTooltipIndex])
+                                            handleResultClick(speakerStartTS[event.activeTooltipIndex])
+                                        }
+
+                                    }
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <YAxis />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Area type="monotone" dataKey={getTop3Emotion()[0]} stackId="1" stroke="#8884d8" fill="#8884d8" />
+                                <Area type="monotone" dataKey={getTop3Emotion()[1]} stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+                                <Area type="monotone" dataKey={getTop3Emotion()[2]} stackId="1" stroke="#ffc658" fill="#ffc658" />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
 
             </div>
         </div>
     );
 }
+
+interface CustomTooltipProps {
+    payload?: any;
+    label?: any;
+    active?: boolean;
+}
+
+const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) => {
+    if (active && payload && payload.length) {
+        const sortedPayload = payload.sort((a: any, b: any) => b.value - a.value);
+
+        return (
+            <div className="custom-tooltip bg-white rounded p-4 shadow-md">
+                <p className="label">{`${label}`}</p>
+                {sortedPayload.map((entry: any, index: any) => (
+                    <p key={index} style={{ color: entry.color }}>{`${entry.name}: ${entry.value.toFixed(0)} %`}</p>
+                ))}
+            </div>
+        );
+    }
+
+    return null;
+};

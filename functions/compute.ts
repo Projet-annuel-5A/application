@@ -76,3 +76,34 @@ export function computeInconsistency({
 
     return inconsistency;
 }
+
+export function get3MostEmotions(emotionArray: any[]) {
+    // Step 1: Initialize a frequency map
+    const emotionFrequency = {} as any;
+
+    // Step 2: Iterate over each emotion object in the array
+    emotionArray.forEach(emotionObj => {
+        // Convert the object into an array of [emotion, value] pairs
+        const entries = Object.entries(emotionObj);
+
+        // Sort the entries by value in descending order and take the top 3
+        const top3 = entries.sort((a: any, b:any ) => b[1] - a[1]).slice(0, 3);
+
+        // Increment the frequency of each emotion in the top 3
+        top3.forEach(([emotion, _value]:[any, any]) => {
+            if (emotionFrequency[emotion]) {
+                emotionFrequency[emotion]++;
+            } else {
+                emotionFrequency[emotion] = 1;
+            }
+        });
+    });
+
+    // Step 3: Convert the frequency map into an array of [emotion, count] pairs
+    const frequencyArray = Object.entries(emotionFrequency);
+
+    // Step 4: Sort the array by count in descending order and take the top 3 emotions
+    const top3Emotions = frequencyArray.sort((a: any, b:any) => b[1] - a[1]).slice(0, 3).map(entry => entry[0]);
+
+    return top3Emotions;
+}

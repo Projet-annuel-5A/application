@@ -77,7 +77,7 @@ export default function EmotionPercentageBox({
                     {topThreeVideoEmotions.map((emotionScore, idx) => (
                         Math.round(emotionScore[1]) > 0 && (
                             <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
-                                <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
+                                <span className="text-white">{emotionScore[0]}: {Math.round(emotionScore[1])} % </span>
                             </div>
                         )
                     ))}
@@ -91,7 +91,7 @@ export default function EmotionPercentageBox({
                     {topThreetextEmotions.map((emotionScore, idx) => (
                         Math.round(emotionScore[1]) > 0 && (
                             <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
-                                <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
+                                <span className="text-white">{emotionScore[0]}: {Math.round(emotionScore[1])} % </span>
                             </div>
                         )
                     ))}
@@ -105,7 +105,7 @@ export default function EmotionPercentageBox({
                     {topThreeAudioEmotions.map((emotionScore, idx) => (
                         Math.round(emotionScore[1]) > 0 && (
                             <div key={emotionScore[0]} className="flex justify-center p-2 bg-slate-500 rounded-md my-2 shadow-md w-3/5">
-                                <span className="text-white">{idx + 1}: {emotionScore[0]} </span>
+                                <span className="text-white">{emotionScore[0]}: {Math.round(emotionScore[1])} % </span>
                             </div>
                         )
                     ))}
