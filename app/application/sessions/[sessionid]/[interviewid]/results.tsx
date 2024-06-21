@@ -9,12 +9,12 @@ import Dashboard from "./dashboard";
 // import Dashboard from "./dashboard";
 
 export default function Results({ sessionid, interviewid, interview }: { sessionid: string | undefined, interviewid: string | undefined, interview: Interview }) {
-    
+
     const router = useRouter();
     const [results, setResults] = useState<any>([]);
 
     useEffect(() => {
-        
+
         if (!interview.video_ok || !interview.text_ok || !interview.audio_ok || !interview.diarization_ok) {
 
             console.log("Start listening for DB changes of process status");
@@ -80,13 +80,15 @@ export default function Results({ sessionid, interviewid, interview }: { session
     return (
         <div className="flex justify-center items-start h-full w-full">
             <div className="flex flex-col items-center mt-4 w-full h-full overflow-auto">
-                {processOkNum === 4 ? 
+                {processOkNum === 4 ?
                     <div className="flex flex-col">
-                        <Dashboard videoUrl={videoUrl} results={results}/>
-                        {/* <Dashboard results={results}/> */}
+                        <Dashboard videoUrl={videoUrl} results={results} />
                     </div> :
-                    <div>
-                        Processing: {processOkNum}/4
+                    <div className="h-full text-white">
+                        Processing ...
+                        <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div className={`bg-blue-500 h-2.5 rounded-full`} style={{ width: `${(processOkNum / 4) * 100}%` }}></div>
+                        </div>
                     </div>
                 }
 
