@@ -1,6 +1,5 @@
 "use client"
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Session } from '@/app/types/database';
 import { supabaseBrowserClient as supabase } from '@/utils/supabase/client';
