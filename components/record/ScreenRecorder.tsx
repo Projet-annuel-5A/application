@@ -153,7 +153,7 @@ export default function ScreenRecorder({ sessionID, interviewID }: { sessionID: 
             console.log("Enregistrement sauvegardé avec succès:");
             await supabase.from("interviews").update({ 'raw_file_ok': true }).filter('id', 'eq', interviewID);
             try {
-                fetch(`http://127.0.0.1:8000/predict`, {
+                fetch(`http://${process.env.NEXT_MIDDLEWARE_IP}/predict`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
