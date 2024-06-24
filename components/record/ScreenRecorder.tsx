@@ -108,7 +108,7 @@ export default function ScreenRecorder({ sessionID, interviewID }: { sessionID: 
                 {showSaveButton && (
                     <button
                         onClick={saveRecording}
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-4"
+                        className={`bg-green-500 text-white font-bold py-2 px-4 rounded mx-4 ${isSaving ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'}`}
                         disabled={isSaving}
                     >
                         Save Interview
