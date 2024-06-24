@@ -1,156 +1,156 @@
 export const textCompatibilityObj = {
     "text": {
         "anger": {
-            "video": ["angry"],
-            "audio": ["Tension"]
+            "video": ["angry","neutral","fear","sad"],
+            "audio": ["Tension","Neutral","Relaxed","Sad"]
         },
         "annoyance": {
-            "video": ["angry"],
-            "audio": ["Tension"]
+            "video": ["angry","neutral","fear","sad"],
+            "audio": ["Tension","Neutral","Relaxed","Sad"]
         },
         "disapproval": {
-            "video": ["angry"],
-            "audio": ["Tension"]
+            "video": ["angry","neutral","fear","sad"],
+            "audio": ["Tension","Neutral","Relaxed","Sad"]
         },
         "envy": {
-            "video": ["angry"],
-            "audio": ["Tension"]
+            "video": ["angry","neutral","fear","sad"],
+            "audio": ["Tension","Neutral","Relaxed","Sad"]
         },
         "frustration": {
-            "video": ["angry"],
-            "audio": ["Tension"]
+            "video": ["angry","neutral","fear","sad"],
+            "audio": ["Tension","Neutral","Relaxed","Sad"]
         },
         "disgust": {
-            "video": ["disgust"],
-            "audio": ["Tension"]
+            "video": ["surprise","neutral","angry","disgust","happy","fear","sad"],
+            "audio": ["Relaxed","Neutral","Tension"]
         },
         "pain": {
-            "video": ["disgust"],
-            "audio": ["Tension"]
+            "video": ["sad","neutral","angry","fear"],
+            "audio": ["Sad","Neutral","Relaxed","Tension"]
         },
         "doubt": {
-            "video": ["fear"],
-            "audio": ["Tension"]
+            "video": ["fear","neutral","angry","sad"],
+            "audio": ["Tension","Neutral","Sad"]
         },
         "embarrassment": {
-            "video": ["fear"],
-            "audio": ["Tension"]
+            "video": ["sad","neutral","angry","fear"],
+            "audio": ["Sad","Neutral","Relaxed","Tension"]
         },
         "fear": {
-            "video": ["fear"],
-            "audio": ["Tension"]
+            "video": ["fear","neutral","angry","sad"],
+            "audio": ["Tension","Neutral","Sad"]
         },
         "nervousness": {
-            "video": ["fear"],
-            "audio": ["Tension"]
+            "video": ["fear","neutral","angry","sad"],
+            "audio": ["Tension","Neutral","Sad"]
         },
         "admiration": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "amusement": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "approval": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "caring": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "courage": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "desire": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "faith": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "gratitude": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["happy","neutral","surprise"],
+            "audio": ["Pleased","Relaxed","Neutral"]
         },
         "joy": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["happy","neutral","surprise"],
+            "audio": ["Pleased","Relaxed","Neutral"]
         },
         "love": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["happy","neutral","surprise"],
+            "audio": ["Pleased","Relaxed","Neutral"]
         },
         "optimism": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["happy","neutral","surprise"],
+            "audio": ["Pleased","Relaxed","Neutral"]
         },
         "pride": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "relief": {
-            "video": ["happy"],
-            "audio": ["Pleased"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "boredom": {
-            "video": ["neutral"],
-            "audio": ["Neutral", "Relaxed"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "calmness": {
-            "video": ["neutral"],
-            "audio": ["Neutral", "Relaxed"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "indifference": {
-            "video": ["neutral"],
-            "audio": ["Neutral", "Relaxed"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "trust": {
-            "video": ["neutral"],
-            "audio": ["Neutral", "Relaxed"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "despair": {
-            "video": ["sad"],
-            "audio": ["Sad"]
+            "video": ["sad","neutral","angry","fear"],
+            "audio": ["Sad","Neutral","Relaxed","Tension"]
         },
         "disappointment": {
-            "video": ["sad"],
-            "audio": ["Sad"]
+            "video": ["angry","neutral","fear","sad"],
+            "audio": ["Tension","Neutral","Relaxed","Sad"]
         },
         "grief": {
-            "video": ["sad"],
-            "audio": ["Sad"]
+            "video": ["sad","neutral","angry","fear"],
+            "audio": ["Sad","Neutral","Relaxed","Tension"]
         },
         "nostalgia": {
-            "video": ["sad"],
-            "audio": ["Sad"]
+            "video": ["sad","neutral","angry","fear"],
+            "audio": ["Sad","Neutral","Relaxed","Tension"]
         },
         "sadness": {
-            "video": ["sad"],
-            "audio": ["Sad"]
+            "video": ["sad","neutral","angry","fear"],
+            "audio": ["Sad","Neutral","Relaxed","Tension"]
         },
         "curiosity": {
-            "video": ["surprise"],
-            "audio": ["Tension"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "excitement": {
-            "video": ["surprise"],
-            "audio": ["Tension"]
+            "video": ["happy","neutral","surprise"],
+            "audio": ["Pleased","Relaxed","Neutral"]
         },
         "surprise": {
-            "video": ["surprise"],
-            "audio": ["Tension"]
+            "video": ["surprise","neutral","angry","disgust","happy","fear","sad"],
+            "audio": ["Neutral","Relaxed","Pleased","Tension","Sad"]
         },
         "greed": {
-            "video": ["neutral"],
-            "audio": ["Sad"]
+            "video": ["angry","disgust","happy","fear","surprise","sad"],
+            "audio": ["Neutral","Pleased","Relaxed","Tension","Sad"]
         },
         "guilt": {
-            "video": ["neutral"],
-            "audio": ["Sad"]
+            "video": ["fear","neutral","angry","sad"],
+            "audio": ["Tension","Neutral","Sad"]
         },
     }
 };
