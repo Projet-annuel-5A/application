@@ -53,32 +53,32 @@ export default function ScreenRecorder({ sessionID, interviewID }: { sessionID: 
         const file = new File([recordedBlob], 'screenRecording.mp4', { type: 'video/mp4' });
         const { error } = await supabase.storage.from('interviews').upload(`${sessionID}/${interviewID}/raw/raw.mp4`, file);
 
-        if (error) {
-            console.error("Erreur lors de l'upload de l'enregistrement", error);
-        } else {
-            console.log("Enregistrement sauvegardé avec succès:");
-            await supabase.from("interviews").update({ 'raw_file_ok': true }).filter('id', 'eq', interviewID);
-            try {
-                if (process.env.NEXT_PUBLIC_ENV === 'production'){
-                    var url = `https://${process.env.NEXT_PUBLIC_MIDDLEWARE_IP}/predict`;
-                } else {
-                    var url = `http://${process.env.NEXT_PUBLIC_MIDDLEWARE_IP}:8000/predict`;
-                }
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        session_id: Number(sessionID),
-                        interview_id: Number(interviewID)
-                    })
-                });
-                router.refresh();
-            } catch (error) {
-                console.error('error starting video processing', error)
-            }
-        }
+        // if (error) {
+        //     console.error("Erreur lors de l'upload de l'enregistrement", error);
+        // } else {
+        //     console.log("Enregistrement sauvegardé avec succès:");
+        //     await supabase.from("interviews").update({ 'raw_file_ok': true }).filter('id', 'eq', interviewID);
+        //     try {
+        //         if (process.env.NEXT_PUBLIC_ENV === 'production'){
+        //             var url = `https://${process.env.NEXT_PUBLIC_MIDDLEWARE_IP}/predict`;
+        //         } else {
+        //             var url = `http://${process.env.NEXT_PUBLIC_MIDDLEWARE_IP}:8000/predict`;
+        //         }
+        //         fetch(url, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify({
+        //                 session_id: Number(sessionID),
+        //                 interview_id: Number(interviewID)
+        //             })
+        //         });
+        //         router.refresh();
+        //     } catch (error) {
+        //         console.error('error starting video processing', error)
+        //     }
+        // }
         setIsSaving(false);
     };
 
