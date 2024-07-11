@@ -1,6 +1,7 @@
 import { Interview } from '@/app/types/database'
 import { Compatibility } from '@/utils/emotions/emotionCompatibility';
 export const countTrueValues = (interview: Interview) => {
+    
     let count = 0;
     if (interview.video_ok) count++;
     if (interview.text_ok) count++;
@@ -10,16 +11,48 @@ export const countTrueValues = (interview: Interview) => {
 };
 
 
+// export function calculateAverageEmotions(data: any) {
+//     return data.map((item: any) => {
+//         const videoEmotions = item.video_emotions;
+//         const emotionSums : {[key: string]: number} = {};
+//         let frameCount = 0;
+
+//         Object.entries(videoEmotions).forEach(([frame, emotions]:[any,any]) => {
+//             if (!emotions['No face detected']) {
+//                 frameCount++;
+//                 Object.entries(emotions).forEach(([emotion, value]:[any,any]) => {
+//                     if (!emotionSums[emotion]) {
+//                         emotionSums[emotion] = 0;
+//                     }
+//                     emotionSums[emotion] += value;
+//                 });
+//             }
+//         });
+
+//         const averageEmotions: {[key: string]: number} = {};
+//         Object.entries(emotionSums).forEach(([emotion, sum]) => {
+//             averageEmotions[emotion] = sum / frameCount;
+//         });
+
+//         return averageEmotions;
+//     });
+// }
+
 export function calculateAverageEmotions(data: any) {
     return data.map((item: any) => {
         const videoEmotions = item.video_emotions;
-        const emotionSums : {[key: string]: number} = {};
+        if (!videoEmotions) {
+            // Skip if videoEmotions is null or undefined
+            return {};
+        }
+
+        const emotionSums: { [key: string]: number } = {};
         let frameCount = 0;
 
-        Object.entries(videoEmotions).forEach(([frame, emotions]:[any,any]) => {
+        Object.entries(videoEmotions).forEach(([frame, emotions]: [any, any]) => {
             if (!emotions['No face detected']) {
                 frameCount++;
-                Object.entries(emotions).forEach(([emotion, value]:[any,any]) => {
+                Object.entries(emotions).forEach(([emotion, value]: [any, any]) => {
                     if (!emotionSums[emotion]) {
                         emotionSums[emotion] = 0;
                     }
@@ -28,7 +61,7 @@ export function calculateAverageEmotions(data: any) {
             }
         });
 
-        const averageEmotions: {[key: string]: number} = {};
+        const averageEmotions: { [key: string]: number } = {};
         Object.entries(emotionSums).forEach(([emotion, sum]) => {
             averageEmotions[emotion] = sum / frameCount;
         });

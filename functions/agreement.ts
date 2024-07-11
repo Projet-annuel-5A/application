@@ -5,8 +5,8 @@ export async function sendAgreementRequest({ candidateLastName, candidateFirstNa
     const user = await getUserServer();
 
     const transmitterEmail = user?.email;
-    // const transmitterName = user?.email?.split("@")[0];
-    const transmitterName = "pierre";
+    const transmitterName = user?.email?.split("@")[0];
+    // const transmitterName = "pierre";
 
     const documentID = await createDocFromModel(candidateLastName, candidateFirstName);
 
@@ -20,7 +20,6 @@ export async function sendAgreementRequest({ candidateLastName, candidateFirstNa
         transmitterName: transmitterName as string,
     });
 
-    console.log("Agreement request sended");
 }
 
 async function createDocFromModel(candidateLastName: string, candidateFirstName: string) {
@@ -47,8 +46,6 @@ async function createDocFromModel(candidateLastName: string, candidateFirstName:
         const documentID = responseData.id;
 
         await updateInterviewAgreementDocID(documentID, candidateLastName, candidateFirstName);
-
-        console.log(responseData);
 
         return documentID;
     } catch (error) {
@@ -101,8 +98,6 @@ async function createDocSubscription(docID: string) {
             throw new Error('Network response was not ok');
         }
 
-        console.log(response.status);
-
     } catch (error) {
         console.error('There was a problem with the doc creation fetch operation:', error);
     }
@@ -125,10 +120,10 @@ export async function sendSignInvitation({ docID, candidateEmail, candidatePhone
                 "decline_by_signature": "0",
                 "reminder": 0,
                 "expiration_days": 30,
-                "authentication_type": "phone",
-                "phone": candidatePhone,
-                "method": "sms",
-                "authentication_sms_message": "Your verification code is : {password}",
+                // "authentication_type": "phone",
+                // "phone": candidatePhone,
+                // "method": "sms",
+                // "authentication_sms_message": "Your verification code is : {password}",
                 "subject": "You have a document to sign",
                 "message": `${transmitterName} invited you to sign a document`,
                 "language": "fr"
@@ -150,14 +145,9 @@ export async function sendSignInvitation({ docID, candidateEmail, candidatePhone
             body: JSON.stringify(payload)
         });
 
-        console.log(response.status)
-
         if (!response.ok) {
-            console.log(response.statusText)
             throw new Error('Network response was not ok');
         }
-
-        console.log(response.status);
 
     } catch (error) {
         console.error('There was a problem with the sign invitation fetch operation:', error);

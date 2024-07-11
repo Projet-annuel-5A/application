@@ -1,26 +1,56 @@
 "use client"
 
 import { Interview } from '@/app/types/database';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabaseBrowserClient as supabase } from '@/utils/supabase/client';
 import IconTrash from '@/icons/trash';
+import { useEffect } from "react";
 
-export default function Interviews({ interviews }: { interviews: Interview[]; }) {
-    const router = useRouter();
+export default function Interviews({ interviews, sessionID, refresh }: { interviews: Interview[] , sessionID: string | undefined, refresh: any}) {
 
-    const deleteInterview = async (id: string | undefined) => {
-        if (id) {
+    const router = useRouter() 
+
+    useEffect(() => {
+
+        if (sessionID) {
+
+            console.log("Start listening for DB changes of process status");
+
+            const channel = supabase
+                .channel('schema-db-changes')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'UPDATE',
+                        schema: 'public',
+                        table: 'interviews',
+                        filter: `session_id=eq.${sessionID}`
+                    },
+                    (payload) => {refresh();}
+                )
+                .subscribe();
+
+            return () => {
+                console.log("Unsubscribe from DB changes");
+                supabase.removeChannel(channel);
+            };
+        } else {
+            console.log("Process is terminated, don't listen for DB changes");
+        }
+    }, [sessionID, interviews]);
+
+
+    const deleteInterview = async (sessionID: string | undefined, interviewID: string | undefined) => {
+        if (interviewID) {
             const { error } = await supabase
                 .from('interviews')
                 .delete()
-                .eq('id', id);
+                .eq('id', interviewID);
 
             if (error) {
                 console.error('Error deleting interview:', error);
                 return;
             }
-
             router.refresh();
         }
     };
@@ -45,14 +75,20 @@ export default function Interviews({ interviews }: { interviews: Interview[]; })
                                 !interview.raw_file_ok ? (
                                     <h5 className="text-yellow-600 font-semibold text-end select-none">Waiting for a video ...</h5>
                                 ) : (
-                                    null
+                                    interview.diarization_ok ? (
+                                        !interview.speaker_validation_ok ? (
+                                            <h5 className="text-yellow-600 font-semibold text-end select-none">Waiting for speaker validation ...</h5>
+                                        ) : !interview.inference_ok ? (
+                                            <h5 className="text-blue-600 font-semibold text-end select-none">Processing ...</h5>
+                                        ): null
+                                    ): <h5 className="text-blue-600 font-semibold text-end select-none">Processing ...</h5>
                                 )
                             ) : (
-                                <h5 className="text-yellow-600 font-semibold text-end select-none">Waiting for a candidate agreement ...</h5>
+                                <h5 className="text-yellow-600 font-semibold text-end select-none">Waiting for candidate agreement ...</h5>
                             )}
                         </div>
                         <div className='flex justify-end mr-2'>
-                            <button className='hover:hover:bg-slate-300 hover:shadow-md rounded-md' onClick={() => deleteInterview(interview.id)}>
+                            <button className='hover:hover:bg-slate-300 hover:shadow-md rounded-md' onClick={() => deleteInterview(interview.session_id, interview.id)}>
                                 <IconTrash />
                             </button>
                         </div>

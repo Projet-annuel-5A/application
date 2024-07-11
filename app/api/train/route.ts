@@ -3,15 +3,22 @@ import { JobServiceClient } from '@google-cloud/aiplatform';
 
 const client = new JobServiceClient({
     projectId: "annual-project-427112",
-    keyFilename: "./application_default_credentials.json",
+    credentials: {
+        "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
+        "client_secret": process.env.NEXT_GCP_SECRET,
+        "quota_project_id": "annual-project-427112",
+        "refresh_token": process.env.NEXT_GCP_TOKEN,
+        "type": "authorized_user",
+        "universe_domain": "googleapis.com"
+    },
     apiEndpoint: 'europe-west1-aiplatform.googleapis.com'
 });
 
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
+// export const config = {
+//     api: {
+//         bodyParser: false,
+//     },
+// };
 
 export async function POST(req: NextRequest) {
     try {

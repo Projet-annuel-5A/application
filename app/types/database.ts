@@ -28,7 +28,9 @@ export type Interview = {
     diarization_ok: boolean,
     audio_ok: boolean,
     text_ok: boolean,
-    video_ok: boolean
+    video_ok: boolean,
+    speaker_validation_ok: boolean,
+    inference_ok: boolean
 };
 
 export type RowResult = {

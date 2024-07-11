@@ -54,7 +54,7 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 bg-neutral-200 my-10 rounded-xl shadow-md">
+    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 bg-white my-10 rounded-xl shadow-md">
       <Link
         href="/"
         className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
@@ -75,13 +75,9 @@ export default function Login({
         </svg>{" "}
         Back
       </Link>
-      <div className="flex w-full justify-center h-full items-center mt-4">
-        <Image src={logo} alt="logo" width={200} height={200} />
-      </div>
-
-      <h1 className="w-full text-center font-extrabold text-xl">Interviewz</h1>
 
       <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+        <h1 className="w-full text-center font-extrabold text-xl">Interviewz</h1>
         <label className="text-md" htmlFor="email">
           Email
         </label>

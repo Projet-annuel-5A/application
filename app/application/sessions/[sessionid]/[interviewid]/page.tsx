@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { Session, Interview } from "@/app/types/database";
-import ScreenRecorder from '@/components/record/ScreenRecorder';
+import VideoUploader from '@/components/record/VideoUploader';
 import Results from "./results";
-import SendInvitationButton from './sendSignInvitation'
+import WaitDiarization from "./waitDiarization";
 
 interface ParamsInterface {
     sessionid: Session["id"],
@@ -32,31 +32,23 @@ export default async function InterviewPage({ params }: { params: ParamsInterfac
             return (
                 <div className="w-full h-full place-content-center">
                     <h2 className="text-white text-center">Waiting for {interview.last_name} {interview.first_name} agreement on {interview.email} ...</h2>
-                    {user &&
-                        <SendInvitationButton
-                            docID={interview.agreement_doc_id}
-                            candidateEmail={interview.email}
-                            candidatePhone={interview.phone}
-                            transmitterEmail={user.email}
-                            transmitterName={user.email}
-                        />
-                    }
+                    
 
                 </div>
             );
 
         } else if (!interview.raw_file_ok) {
             return (
-                <div className="flex justify-center">
-                    <div className="flex flex-col justify-center">
-                        <ScreenRecorder sessionID={params.sessionid} interviewID={params.interviewid} />
-
-
+                <div className="flex justify-center w-full h-full">
+                    <div className="flex flex-col justify-center items-center w-full h-full">
+                        <VideoUploader sessionID={params.sessionid} interviewID={params.interviewid} />
                     </div>
                 </div>
             );
+        } else if (!interview.diarization_ok) {
+            return <WaitDiarization interview={interview} interviewid={params.interviewid}/>;
         } else {
-            return <Results sessionid={params.sessionid} interviewid={params.interviewid} interview={interview} />
+            return <Results sessionid={params.sessionid} interviewid={params.interviewid} interview={interview} user={user} />
         }
     } else {
         return <div>Interview not found</div>;

@@ -39,33 +39,64 @@ export default function Page() {
     };
 
     return (
-        <div className="flex justify-center h-full">
-            <div className="flex flex-col justify-center h-full">
-                <form onSubmit={handleSubmit} className="space-y-4 bg-slate-700 rounded-md p-7 shadow-md">
+        <div className="flex justify-center items-center min-h-screen">
+            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <h1 className="text-xl font-semibold text-gray-800 mb-6">Add a new interview session</h1>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300">
+                        <label className="block text-sm font-medium text-gray-700">
                             Name:
-                            <input type="text" name="name" value={sessionData.name} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 bg-slate-200 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                            <input
+                                type="text"
+                                name="name"
+                                value={sessionData.name}
+                                onChange={handleInputChange}
+                                className="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            />
                         </label>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300">
+                        <label className="block text-sm font-medium text-gray-700">
                             Start Date:
-                            <input type="date" name="startDate" value={sessionData.startDate} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 bg-slate-200 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                            <input
+                                type="date"
+                                name="startDate"
+                                value={sessionData.startDate}
+                                onChange={handleInputChange}
+                                className="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            />
                         </label>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300">
+                        <label className="block text-sm font-medium text-gray-700">
                             End Date:
-                            <input type="date" name="endDate" value={sessionData.endDate} onChange={handleInputChange} className="mt-1 block w-full px-3 py-2 bg-slate-200 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                            <input
+                                type="date"
+                                name="endDate"
+                                value={sessionData.endDate}
+                                onChange={handleInputChange}
+                                className="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            />
                         </label>
                     </div>
                     <div className="flex justify-end space-x-4">
-                        <button type="button" onClick={() => router.push('/application/sessions')} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
-                        <button type="submit" onClick={() => handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Session</button>
+                        <button
+                            type="button"
+                            onClick={() => router.push('/application/sessions')}
+                            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+                        >
+                            Save Session
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     );
+
 }

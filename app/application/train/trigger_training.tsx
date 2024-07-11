@@ -19,7 +19,7 @@ export default function TriggerTrainning() {
         <div className="flex flex-col items-center justify-center">
             <button
                 onClick={handleTrainJob}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-600 hover:bg-green-500 active:bg-green-800 text-white font-bold py-2 px-4 rounded"
             >
                 Create Training Job
             </button>

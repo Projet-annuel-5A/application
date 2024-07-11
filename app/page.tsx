@@ -13,6 +13,8 @@ export default async function Index() {
 
   if (user) {
     return redirect("/application/sessions/");
+  } else {
+    redirect("/login/");
   }
 
   return (

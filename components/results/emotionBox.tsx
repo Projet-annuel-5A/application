@@ -55,14 +55,14 @@ export default function EmotionPercentageBox({
         <div className="flex flex-col w-full h-full">
             <div className={`flex justify-center w-full my-3 p-2 rounded-md ${inconsistencyScore === 3 ? 'bg-red-500' : ''} ${inconsistencyScore === 2 ? 'bg-yellow-500' : ''} ${inconsistencyScore === 1 || inconsistencyScore === 0 ? 'bg-green-500' : ''}`}>
                 {inconsistencyScore === 3 ? (
-                    <span className="font-bold">High inconsistency</span>
+                    <span className="font-bold">Low consistency</span>
                 ) : (
                     inconsistencyScore === 2 ? (
-                        <span className="font-bold">Moderate inconsistency</span>
+                        <span className="font-bold">Moderate consistency</span>
                     ) : (
                         inconsistencyScore === 1 || inconsistencyScore === 0 ? (
-                            <span className="font-bold">Low inconsistency</span>
-                        ) : <span className="font-bold">Consitent</span>
+                            <span className="font-bold">High consistency</span>
+                        ) : <span className="font-bold">High consistency</span>
                     )
                 )}
             </div>
