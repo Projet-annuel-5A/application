@@ -149,7 +149,6 @@ export default function Dashboard({ videoUrl, results, complet, sessionID, inter
             setVideo(videoEmotions);
             setFilteredVideo(filteredVideoEmotions);
 
-            // console.log("filteredAudioEmotions",filteredAudioEmotions)
 
             setVideoEmotionChartFilter(get3MostEmotions(filteredVideoEmotions));
             setAudioEmotionChartFilter(get3MostEmotions(filteredAudioEmotions));
@@ -166,7 +165,6 @@ export default function Dashboard({ videoUrl, results, complet, sessionID, inter
                 setCurrentIdx(idx);
             }
         }
-        console.log(video[currentIdx], text[currentIdx], audio[currentIdx])
     }, [currentTime, sortedResults]);
 
     const getSelectedData = () => {

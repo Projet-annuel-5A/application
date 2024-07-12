@@ -101,9 +101,6 @@ export function computeInconsistency({
         if (!videoCompatibilities.text.includes(audioEmotion)){ // Check video compatibility over audio
             inconsistency += 1;
         }
-
-        // console.log("compatibility",compatibility);
-        console.log("inconsistency", inconsistency);
     }
 
 

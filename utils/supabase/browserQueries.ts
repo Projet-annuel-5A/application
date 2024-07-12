@@ -19,8 +19,6 @@ export async function updateSpeakerOk(interviewID: string | undefined) {
         throw new Error(`Error updating speaker_validation_ok: ${error.message}`);
     }
 
-    console.log("speaker_validation_ok updated to True in database");
-
     return data;
 }
 
@@ -49,8 +47,6 @@ export async function updateSpeakerInDB(resultsToUpdate: any, interviewID: strin
     if (error) {
         throw new Error(`Error updating speaker: ${error.message}`);
     }
-
-    console.log("speaker updated in database");
 
     await updateSpeakerOk(interviewID);
 

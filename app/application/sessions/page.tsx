@@ -18,7 +18,6 @@ export default function Page() {
 
         const response = await getUserClient();
         const user = response.data.user;
-        console.log("user", user);
 
         const { data, error } = await supabase.from('sessions').select('*') as { data: Session[] | null, error: any };
         
