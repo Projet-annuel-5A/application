@@ -9,6 +9,7 @@ export async function sendAgreementRequest({ candidateLastName, candidateFirstNa
     // const transmitterName = "pierre";
 
     const documentID = await createDocFromModel(candidateLastName, candidateFirstName);
+    console.log("documentID",documentID);
 
     await createDocSubscription(documentID);
 
@@ -44,6 +45,8 @@ async function createDocFromModel(candidateLastName: string, candidateFirstName:
 
         const responseData = await response.json();
         const documentID = responseData.id;
+
+        console.log("create doc from model",console.log(responseData),console.log(documentID),process.env.NEXT_AGREEMENT_SERVICE_TEMPLATE_ID, process.env.NEXT_AGREEMENT_SERVICE_BEARER_TOKEN);
 
         await updateInterviewAgreementDocID(documentID, candidateLastName, candidateFirstName);
 
@@ -93,6 +96,8 @@ async function createDocSubscription(docID: string) {
             headers: headers,
             body: JSON.stringify(payload)
         });
+
+        console.log("doc subscription", await response.text(), process.env.NEXT_AGREEMENT_SERVICE_URL_CALLBACK, process.env.NEXT_AGREEMENT_SERVICE_BEARER_TOKEN);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -144,6 +149,8 @@ export async function sendSignInvitation({ docID, candidateEmail, candidatePhone
             headers: headers,
             body: JSON.stringify(payload)
         });
+
+        console.log("send sign invitation", await response.text(), process.env.NEXT_AGREEMENT_SERVICE_BEARER_TOKEN)
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
