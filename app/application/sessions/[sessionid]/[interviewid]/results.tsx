@@ -32,9 +32,9 @@ export default function Results({ sessionid, interviewid, interview, user }: { s
                         if (updatedInterview.inference_ok) {
                             console.log("Process is terminated, unsubscribe from DB changes");
                             channel.unsubscribe();
-                            router.refresh();
+                            router.push(`/application/sessions/${sessionid}`);
                         } else {
-                            router.refresh();
+                            router.push(`/application/sessions/${sessionid}`);
                         }
                     }
                 )
@@ -87,33 +87,42 @@ export default function Results({ sessionid, interviewid, interview, user }: { s
         interview.audio_ok
     ])
 
-    return (
-        <div className="flex justify-center items-start h-full w-full">
-            <div className="flex flex-col items-center mt-4 w-full h-full overflow-auto">
-                <>
-                    {!interview.speaker_validation_ok ? (
-                        <div className="flex flex-col">
-                            <Dashboard videoUrl={videoUrl} results={results} complet={false} sessionID={sessionid} interviewID={interviewid} />
-                        </div>
-                    ) : interview.inference_ok ? (
-                        <div className="flex flex-col">
-                            <Dashboard videoUrl={videoUrl} results={results} complet={true} sessionID={sessionid} interviewID={interviewid} />
-                        </div>
-                    ) : (
-                        <div className="w-2/4 h-full flex flex-col items-center justify-center bg-gray-50 p-6 rounded-xl shadow-lg">
-                            <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
-                                <h2 className="text-xl font-semibold text-gray-700 mb-4">Processing...</h2>
-                                <div className="w-full bg-gray-200 rounded-full h-4">
-                                    <div className="bg-blue-600 h-4 rounded-full transition-all duration-300" style={{ width: `${(nbOk / lenOk) * 100}%` }}></div>
-                                </div>
-                                <p className="text-sm text-gray-500 mt-2">{`${Math.round((nbOk / lenOk) * 100)}% Complete`}</p>
-                            </div>
-                        </div>
-
-                    )}
-                </>
+    if (!interview.speaker_validation_ok) {
+        return (
+            <div className="flex justify-center items-start h-full w-full">
+                <div className="flex flex-col items-center mt-4 w-full h-full overflow-auto">
+                    <div className="flex flex-col">
+                        <Dashboard videoUrl={videoUrl} results={results} complet={false} sessionID={sessionid} interviewID={interviewid} />
+                    </div>
+                </div>
             </div>
-        </div>
-    );
-}
+        );
+    } else if (interview.inference_ok) {
+        return (
+            <div className="flex justify-center items-start h-full w-full">
+                <div className="flex flex-col items-center mt-4 w-full h-full overflow-auto">
+                    <div className="flex flex-col">
+                        <Dashboard videoUrl={videoUrl} results={results} complet={true} sessionID={sessionid} interviewID={interviewid} />
+                    </div>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div className="flex justify-center items-start h-full w-full">
+                <div className="flex flex-col items-center mt-4 w-full h-full overflow-auto">
+                    <div className="w-2/4 h-full flex flex-col items-center justify-center p-6 rounded-xl">
+                        <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
+                            <h2 className="text-xl font-semibold text-gray-700 mb-4">Processing...</h2>
+                            <div className="w-full bg-gray-200 rounded-full h-4">
+                                <div className="bg-blue-600 h-4 rounded-full transition-all duration-300" style={{ width: `${(nbOk / lenOk) * 100}%` }}></div>
+                            </div>
+                            <p className="text-sm text-gray-500 mt-2">{`${Math.round((nbOk / lenOk) * 100)}% Complete`}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
+}
