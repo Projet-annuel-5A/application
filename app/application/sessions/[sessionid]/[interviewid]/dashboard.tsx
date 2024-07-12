@@ -212,15 +212,14 @@ export default function Dashboard({ videoUrl, results, complet, sessionID, inter
                     >
                         Switch all speackers
                     </button>
-                    <button
-                        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 w-1/6"
-                        onClick={() => router.push(`application/sessions/${sessionID}/${interviewID}/infos`)}
-                    >
-                        Candidate informations
-                    </button>
                 </div> : null
             }
-
+            <button
+                className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 w-1/6"
+                onClick={() => router.push(`/application/sessions/${sessionID}/${interviewID}/infos`)}
+            >
+                Candidate informations
+            </button>
             {/* VIDEO DISPLAY */}
             <div className="flex w-full h-full justify-center space-x-2">
                 <div className="h-full w-9/12">
